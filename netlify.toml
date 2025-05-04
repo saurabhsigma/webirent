@@ -5,8 +5,8 @@
 [build.environment]
   NEXT_PUBLIC_BASE_URL = "https://webirent.netlify.app"
   NODE_VERSION = "18"
-  NEXTAUTH_URL = "https://your-site-url.netlify.app"
-  NEXTAUTH_SECRET = "your-nextauth-secret"
+  NEXTAUTH_URL = "https://croo-rent.netlify.app/"
+  NEXTAUTH_SECRET = "3+IY2CIIux+aXQtLSrXf3Fux9b/ivHOMsDn1Z+xLqos="
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
