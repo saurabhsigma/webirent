@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import connectToDatabase from '@/lib/db';
+import connectDB from '@/lib/db';
 import Order from '@/models/Order';
 import Template from '@/models/Template';
 
@@ -17,7 +17,7 @@ export async function GET() {
   }
 
   try {
-    await connectToDatabase();
+    await connectDB();
     
     const orders = await Order.find({ user: session.user.id })
       .populate('template')
@@ -34,7 +34,7 @@ export async function GET() {
   }
 }
 
-// POST endpoint to create orders (your existing code)
+// POST endpoint to create orders
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
 
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
       );
     }
 
-    await connectToDatabase();
+    await connectDB();
 
     const template = await Template.findById(templateId);
     if (!template) {
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
       .populate('user');
 
     try {
-      const emailResponse = await fetch(`${process.env.NEXTAUTH_URL}/api/sendemail`, {
+      const emailResponse = await fetch(`${process.env.NEXTAUTH_URL}/api/send-emails`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

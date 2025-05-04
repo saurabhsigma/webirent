@@ -13,6 +13,7 @@ import Image from 'next/image';
 type FormData = {
   businessName: string;
   contactEmail: string;
+  contactPhone?: string;
   requirements?: string;
 };
 
@@ -79,7 +80,6 @@ export default function OrderTemplateClient({ template }: { template: TemplateTy
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.accessToken}`
         },
         body: JSON.stringify({
           amount: template.price * 100,
@@ -103,8 +103,6 @@ export default function OrderTemplateClient({ template }: { template: TemplateTy
         order_id: orderData.id,
         handler: async function (response: any) {
           // On successful payment
-          const orderNumber = `WR-${new Date().getFullYear().toString().slice(-2)}${(new Date().getMonth() + 1).toString().padStart(2, '0')}${new Date().getDate().toString().padStart(2, '0')}-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`;
-          
           try {
             // Save to MongoDB
             const orderResponse = await fetch('/api/orders', {
@@ -114,9 +112,13 @@ export default function OrderTemplateClient({ template }: { template: TemplateTy
               },
               body: JSON.stringify({
                 templateId: template._id,
-                businessName: data.businessName,
-                contactEmail: data.contactEmail,
-                requirements: data.requirements
+                customerDetails: {
+                  businessName: data.businessName,
+                  contactEmail: data.contactEmail,
+                  contactPhone: data.contactPhone || '',
+                  requirements: data.requirements || ''
+                },
+                paymentId: response.razorpay_payment_id
               }),
             });
         
@@ -267,6 +269,19 @@ export default function OrderTemplateClient({ template }: { template: TemplateTy
                       {errors.contactEmail && (
                         <p className="mt-1 text-sm text-red-400">{errors.contactEmail.message}</p>
                       )}
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-300 mb-1">
+                        Contact Phone
+                      </label>
+                      <input
+                        id="contactPhone"
+                        type="text"
+                        {...register('contactPhone')}
+                        className="input-field"
+                        placeholder="Your contact phone number"
+                      />
                     </div>
                     
                     <div>
