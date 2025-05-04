@@ -126,6 +126,8 @@ export const authOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   useSecureCookies: process.env.NODE_ENV === 'production',
+  debug: process.env.NODE_ENV === 'development',
 };
 
-export default NextAuth(authOptions);
+// For Netlify deployment
+export const handler = NextAuth(authOptions);

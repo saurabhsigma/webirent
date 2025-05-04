@@ -5,6 +5,18 @@
 [build.environment]
   NEXT_PUBLIC_BASE_URL = "https://webirent.netlify.app"
   NODE_VERSION = "18"
+  NEXTAUTH_URL = "https://your-site-url.netlify.app"
+  NEXTAUTH_SECRET = "your-nextauth-secret"
 
 [[plugins]]
-  package = "@netlify/plugin-nextjs" 
+  package = "@netlify/plugin-nextjs"
+
+[[redirects]]
+  from = "/api/auth/*"
+  to = "/.netlify/functions/auth/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200 
