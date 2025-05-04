@@ -54,7 +54,11 @@ export default function Login() {
       }
     } catch (error) {
       setError('An unexpected error occurred');
-      toast.error('An unexpected error occurred');
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('An unexpected error occurred');
+      }
     } finally {
       setIsLoading(false);
     }

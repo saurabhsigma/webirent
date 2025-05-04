@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: 'export', // Enables static export
+    // Removed output: 'export' to enable server-side rendering
 };
 
 module.exports = nextConfig;

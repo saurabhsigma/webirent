@@ -62,8 +62,12 @@ export default function Dashboard() {
           console.log('Orders data received:', data); // Debug log 7
           setOrders(data.orders || []);
         } catch (error) {
-          console.error('Error in fetchOrders:', error); // Debug log 8
-          toast.error(error.message || 'Failed to fetch orders');
+          console.error('Error in fetchOrders:', error);
+          if (error instanceof Error) {
+            toast.error(error.message);
+          } else {
+            toast.error('Failed to fetch orders');
+          }
         } finally {
           setIsLoading(false);
         }

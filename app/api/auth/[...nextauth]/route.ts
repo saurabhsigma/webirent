@@ -1,10 +1,17 @@
-import NextAuth from 'next-auth';
+import NextAuth, { DefaultUser, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import connectDB from '@/lib/db';
-import User from '@/models/User';
+import UserModel from '@/models/User';
 import { JWT } from 'next-auth/jwt';
 import { Session } from 'next-auth';
+import { AdapterUser } from 'next-auth/adapters';
+import { Account, Profile } from 'next-auth';
+
+interface CustomUser extends DefaultUser {
+  role: string;
+  name?: string;
+}
 
 // Extend the JWT interface provided by NextAuth to include custom fields
 declare module 'next-auth' {
@@ -13,6 +20,7 @@ declare module 'next-auth' {
       id: string;
       role: string;
       email: string;
+      name?: string;
     };
     accessToken?: string;
   }
@@ -21,11 +29,12 @@ declare module 'next-auth' {
     id: string;
     role: string;
     email: string;
+    name?: string;
     accessToken?: string;
   }
 }
 
-interface UserType {
+interface UserDocument {
   _id: string;
   name: string;
   email: string;
@@ -48,7 +57,7 @@ export const authOptions = {
 
         await connectDB();
 
-        const user = await User.findOne({ email: credentials.email }).select('+password');
+        const user = await UserModel.findOne({ email: credentials.email }).select('+password') as UserDocument;
 
         if (!user) {
           throw new Error('Invalid email or password');
@@ -65,35 +74,42 @@ export const authOptions = {
           name: user.name,
           email: user.email,
           role: user.role,
-        };
+        } as CustomUser;
       },
     }),
   ],
   session: {
-    strategy: 'jwt',
+    strategy: 'jwt' as const,
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user?: UserType }) {
+    async jwt({ 
+      token, 
+      user, 
+      account, 
+      profile 
+    }: { 
+      token: JWT; 
+      user?: User | AdapterUser; 
+      account?: Account | null; 
+      profile?: Profile | undefined;
+    }) {
       if (user) {
-        token.id = user._id.toString();
-        token.role = user.role;
-        token.email = user.email;
+        const customUser = user as CustomUser;
+        token.id = customUser.id;
+        token.role = customUser.role;
+        token.email = customUser.email;
+        token.name = customUser.name;
       }
       return token;
     },
-    async session({
-      session,
-      token,
-    }: {
-      session: Session;
-      token: JWT;
-    }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       if (token) {
-        session.user.id = token.id;
-        session.user.role = token.role;
-        session.user.email = token.email;
-        session.accessToken = token.accessToken; // Add this line
+        session.user.id = (token.id ?? '') as string;
+        session.user.role = (token.role ?? '') as string;
+        session.user.email = (token.email ?? '') as string;
+        session.user.name = token.name ?? undefined;
+        session.accessToken = (token.accessToken ?? undefined) as string | undefined;
       }
       return session;
     },

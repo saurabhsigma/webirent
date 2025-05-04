@@ -5,38 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FiCheckCircle, FiArrowRight, FiDownload, FiMail } from 'react-icons/fi';
 import { motion } from 'framer-motion';
-
-// Type declaration for html2pdf.js
-declare module 'html2pdf.js' {
-  interface Html2PdfOptions {
-    margin?: number;
-    filename?: string;
-    image?: { type: string; quality: number };
-    html2canvas?: {
-      scale?: number;
-      logging?: boolean;
-      useCORS?: boolean;
-      scrollX?: number;
-      scrollY?: number;
-      [key: string]: any;
-    };
-    jsPDF?: {
-      unit?: 'mm' | 'cm' | 'in' | 'pt' | 'pc' | 'px';
-      format?: string | number[];
-      orientation?: 'portrait' | 'landscape';
-      [key: string]: any;
-    };
-  }
-
-  interface Html2Pdf {
-    set: (options: Html2PdfOptions) => Html2Pdf;
-    from: (element: HTMLElement) => Html2Pdf;
-    save: () => Promise<void>;
-  }
-
-  const html2pdf: Html2Pdf;
-  export default html2pdf;
-}
+import { toast } from 'react-hot-toast';
 
 type OrderDetails = {
   orderNumber: string;
@@ -62,6 +31,7 @@ export default function OrderConfirmation() {
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const receiptRef = useRef<HTMLDivElement>(null);
+  const [html2pdf, setHtml2pdf] = useState<any>(null);
   
   useEffect(() => {
     const storedDetails = localStorage.getItem('orderDetails');
@@ -70,22 +40,28 @@ export default function OrderConfirmation() {
     } else {
       router.push('/templates');
     }
+
+    // Dynamically import html2pdf only on client side
+    import('html2pdf.js').then((module) => {
+      setHtml2pdf(module.default);
+    });
   }, [router]);
 
   const handleDownloadReceipt = async () => {
-    if (!receiptRef.current || !orderDetails || isGeneratingPDF) return;
+    if (!receiptRef.current || !orderDetails || isGeneratingPDF || !html2pdf) return;
 
     setIsGeneratingPDF(true);
     try {
-      const html2pdf = (await import('html2pdf.js')).default;
-      
+      const element = document.getElementById('invoice');
+      if (!element) return;
+
       const opt = {
-        margin: 10,
-        filename: `Webirent_Receipt_${orderDetails.orderNumber}.pdf`,
+        margin: 1,
+        filename: `invoice-${orderDetails.orderId}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
           scale: 2,
-          logging: true,
+          logging: false,
           useCORS: true,
           scrollX: 0,
           scrollY: 0,
@@ -93,20 +69,21 @@ export default function OrderConfirmation() {
           allowTaint: true
         },
         jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
-          orientation: 'portrait',
-          compress: true
+          unit: 'in', 
+          format: 'letter', 
+          orientation: 'portrait' as const
         }
       };
 
-      await html2pdf()
-        .set(opt)
-        .from(receiptRef.current)
-        .save();
-    } catch (err) {
-      console.error('Failed to generate PDF:', err);
-      // You could add a toast notification here
+      await html2pdf().set(opt).from(element).save();
+      toast.success('Invoice downloaded successfully');
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('Failed to download invoice');
+      }
     } finally {
       setIsGeneratingPDF(false);
     }
@@ -284,54 +261,27 @@ export default function OrderConfirmation() {
             </div>
 
             <div className="border-t border-gray-700 my-6 pt-6">
-              <h3 className="text-lg font-semibold mb-2">Your Requirements</h3>
+              <h3 className="text-lg font-semibold mb-2">Customer Requirements</h3>
               <p className="text-gray-300 whitespace-pre-line">
                 {orderDetails.customerDetails.requirements}
               </p>
             </div>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
-          >
-            <button
-              onClick={handleDownloadReceipt}
-              disabled={isGeneratingPDF}
-              className="btn-secondary flex items-center justify-center"
-            >
-              {isGeneratingPDF ? (
-                <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Generating...
-                </span>
-              ) : (
-                <>
-                  <FiDownload className="mr-2" /> Download Receipt
-                </>
-              )}
-            </button>
-            <Link href="/dashboard" className="btn-primary flex items-center justify-center">
-              Go to Dashboard <FiArrowRight className="ml-2" />
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 mt-8">
+              <button
+                onClick={handleDownloadReceipt}
+                disabled={isGeneratingPDF || !html2pdf}
+                className="btn-primary flex items-center justify-center"
+              >
+                <FiDownload className="mr-2" />
+                {isGeneratingPDF ? 'Generating PDF...' : 'Download Receipt'}
+              </button>
+              <Link href="/templates" className="btn-secondary flex items-center justify-center">
+                <FiArrowRight className="mr-2" />
+                Browse More Templates
+              </Link>
+            </div>
           </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="text-center text-gray-400"
-          >
-            Need help? Contact us at{' '}
-            <a href="mailto:support@webirent.com" className="text-purple-400 hover:text-purple-300">
-              <FiMail className="inline mr-1" /> support@webirent.com
-            </a>
-          </motion.p>
         </div>
       </div>
     </div>
