@@ -42,6 +42,14 @@ interface UserDocument {
   password: string;
 }
 
+interface CustomJWT extends JWT {
+  id: string;
+  role: string;
+  email: string;
+  name?: string;
+  accessToken?: string;
+}
+
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -104,12 +112,13 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
-      if (token) {
-        session.user.id = (token.id ?? '') as string;
-        session.user.role = (token.role ?? '') as string;
-        session.user.email = (token.email ?? '') as string;
-        session.user.name = token.name ?? undefined;
-        session.accessToken = (token.accessToken ?? undefined) as string | undefined;
+      const customToken = token as CustomJWT;
+      if (customToken) {
+        session.user.id = customToken.id;
+        session.user.role = customToken.role;
+        session.user.email = customToken.email;
+        session.user.name = customToken.name;
+        session.accessToken = customToken.accessToken;
       }
       return session;
     },

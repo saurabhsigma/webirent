@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Removed output: 'export' to enable server-side rendering
-    output: 'export',
+    // Server-side rendering enabled for NextAuth
 };
 
 module.exports = nextConfig;
