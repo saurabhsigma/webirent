@@ -42,12 +42,21 @@ interface UserDocument {
   password: string;
 }
 
-interface CustomJWT extends JWT {
+// Type guard to check if token has required properties
+function isCustomJWT(token: JWT): token is JWT & {
   id: string;
   role: string;
   email: string;
   name?: string;
   accessToken?: string;
+} {
+  return (
+    typeof token === 'object' &&
+    token !== null &&
+    'id' in token &&
+    'role' in token &&
+    'email' in token
+  );
 }
 
 export const authOptions = {
@@ -112,13 +121,12 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
-      const customToken = token as CustomJWT;
-      if (customToken) {
-        session.user.id = customToken.id;
-        session.user.role = customToken.role;
-        session.user.email = customToken.email;
-        session.user.name = customToken.name;
-        session.accessToken = customToken.accessToken;
+      if (isCustomJWT(token)) {
+        session.user.id = token.id;
+        session.user.role = token.role;
+        session.user.email = token.email;
+        session.user.name = token.name;
+        session.accessToken = token.accessToken;
       }
       return session;
     },
