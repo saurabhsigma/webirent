@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FiArrowRight } from 'react-icons/fi';
+import Image from 'next/image';
+
 
 export default function About() {
   const teamMembers = [
@@ -77,7 +79,7 @@ export default function About() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              We're on a mission to make professional web design accessible to everyone.
+              Were on a mission to make professional web design accessible to everyone.
               Our AI-powered platform helps businesses of all sizes create stunning websites without the complexity.
             </motion.p>
           </div>
@@ -122,7 +124,7 @@ export default function About() {
               
               <p className="text-gray-300">
                 Today, Webirent helps businesses of all sizes establish their online presence with beautiful, functional websites that stand out from the crowd. 
-                We're proud to have served thousands of clients across various industries, from e-commerce stores to professional portfolios and corporate sites.
+                Were proud to have served thousands of clients across various industries, from e-commerce stores to professional portfolios and corporate sites.
               </p>
             </motion.div>
           </div>
@@ -165,7 +167,7 @@ export default function About() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Customer Success</h3>
               <p className="text-gray-300">
-                Your success is our success. We're committed to providing the support and resources you need to create a website that helps your business thrive online.
+                Your success is our success. Were committed to providing the support and resources you need to create a website that helps your business thrive online.
               </p>
             </motion.div>
             
@@ -175,7 +177,7 @@ export default function About() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Innovation</h3>
               <p className="text-gray-300">
-                We continuously push the boundaries of what's possible in web design, leveraging the latest technologies and design trends to keep our templates fresh and cutting-edge.
+                We continuously push the boundaries of whats possible in web design, leveraging the latest technologies and design trends to keep our templates fresh and cutting-edge.
               </p>
             </motion.div>
           </motion.div>
@@ -209,7 +211,7 @@ export default function About() {
                 variants={itemVariants}
               >
                 <div className="h-64 overflow-hidden">
-                  <img 
+                  <Image
                     src={member.image} 
                     alt={member.name} 
                     className="w-full h-full object-cover"

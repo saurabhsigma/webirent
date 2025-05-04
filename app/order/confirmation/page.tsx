@@ -220,7 +220,7 @@ export default function OrderConfirmation() {
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Order Confirmed!</h1>
             <p className="text-xl text-gray-300">
-              Thank you for your order. We'll begin working on it immediately.
+              Thank you for your order. Well begin working on it immediately.
             </p>
           </motion.div>
 

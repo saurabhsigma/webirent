@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiChevronLeft, FiChevronRight, FiStar } from 'react-icons/fi';
+import Image from 'next/image';
 
 const testimonials = [
   {
@@ -68,7 +69,7 @@ const Testimonials = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our <span className="gradient-text">Clients Say</span></h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Don't just take our word for it. Here's what our customers have to say about their experience with Webirent.
+            Dont just take our word for it. Heres what our customers have to say about their experience with Webirent.
           </p>
         </div>
 
@@ -77,7 +78,7 @@ const Testimonials = () => {
             <div className="flex flex-col md:flex-row gap-8">
               <div className="md:w-1/3 flex flex-col items-center">
                 <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
-                  <img 
+                  <Image
                     src={testimonials[currentIndex].image} 
                     alt={testimonials[currentIndex].name} 
                     className="w-full h-full object-cover"
@@ -101,7 +102,7 @@ const Testimonials = () => {
                   transition={{ duration: 0.5 }}
                   className="text-lg italic text-gray-300 mb-6"
                 >
-                  "{testimonials[currentIndex].content}"
+                  {testimonials[currentIndex].content}
                 </motion.blockquote>
               </div>
             </div>

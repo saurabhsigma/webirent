@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { FiPlus, FiShoppingBag, FiUser, FiSettings, FiExternalLink } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 type Order = {
   _id: string;
@@ -166,7 +167,7 @@ export default function Dashboard() {
             
             {orders.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-gray-400 mb-4">You haven't placed any orders yet.</p>
+                <p className="text-gray-400 mb-4">You havent placed any orders yet.</p>
                 <Link href="/templates" className="btn-primary">
                   Browse Templates
                 </Link>
@@ -193,7 +194,7 @@ export default function Dashboard() {
                         <td className="py-4 px-4">
                           <div className="flex items-center">
                             <div className="w-10 h-10 rounded overflow-hidden mr-3">
-                              <img
+                              <Image
                                 src={order.template.imageUrl}
                                 alt={order.template.name}
                                 className="w-full h-full object-cover"

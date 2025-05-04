@@ -41,7 +41,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Describe your dream website, and we'll suggest the perfect templates. 
+            Describe your dream website, and well suggest the perfect templates. 
             Select, customize, and launch your site in minutes.
           </motion.p>
           

@@ -59,8 +59,8 @@ export default function Contact() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Have questions or need assistance? We're here to help.
-              Reach out to our team and we'll get back to you as soon as possible.
+              Have questions or need assistance? Were here to help.
+              Reach out to our team and well get back to you as soon as possible.
             </motion.p>
           </div>
         </div>
@@ -277,14 +277,14 @@ export default function Contact() {
                 <h3 className="text-xl font-semibold mb-2">How long does it take to get my website?</h3>
                 <p className="text-gray-300">
                   After placing your order, we typically deliver your customized website within 3-5 business days. 
-                  For more complex projects, it may take a bit longer, but we'll always keep you updated on the progress.
+                  For more complex projects, it may take a bit longer, but well always keep you updated on the progress.
                 </p>
               </div>
               
               <div className="glass-card p-6">
                 <h3 className="text-xl font-semibold mb-2">Can I request revisions to my template?</h3>
                 <p className="text-gray-300">
-                  Yes, absolutely! We offer two rounds of revisions with every order to ensure you're completely satisfied with your website. 
+                  Yes, absolutely! We offer two rounds of revisions with every order to ensure youre completely satisfied with your website. 
                   Additional revisions can be requested for a small fee.
                 </p>
               </div>
@@ -292,13 +292,13 @@ export default function Contact() {
               <div className="glass-card p-6">
                 <h3 className="text-xl font-semibold mb-2">Do you provide hosting for the websites?</h3>
                 <p className="text-gray-300">
-                  We don't provide hosting directly, but we can help you set up your website on popular hosting platforms like Vercel, Netlify, or AWS. 
-                  We'll provide detailed instructions and support throughout the process.
+                  We dont provide hosting directly, but we can help you set up your website on popular hosting platforms like Vercel, Netlify, or AWS. 
+                  Well provide detailed instructions and support throughout the process.
                 </p>
               </div>
               
               <div className="glass-card p-6">
-                <h3 className="text-xl font-semibold mb-2">Can I update the website myself after it's delivered?</h3>
+                <h3 className="text-xl font-semibold mb-2">Can I update the website myself after its delivered?</h3>
                 <p className="text-gray-300">
                   Yes, all our templates are designed to be user-friendly and easy to update. 
                   We provide documentation on how to make common changes, and our support team is always available to help if you need assistance.

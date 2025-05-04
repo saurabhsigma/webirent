@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { FiSearch, FiPlus, FiFilter, FiX, FiArrowRight } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 type Template = {
   _id: string;
@@ -198,7 +199,7 @@ export default function Templates() {
           ) : filteredTemplates.length === 0 ? (
             <div className="text-center py-12">
               <h3 className="text-xl font-semibold mb-2">No templates found</h3>
-              <p className="text-gray-400 mb-6">Try adjusting your search or filters to find what you're looking for.</p>
+              <p className="text-gray-400 mb-6">Try adjusting your search or filters to find what youre looking for.</p>
               <button onClick={clearFilters} className="btn-primary">
                 Clear filters
               </button>
@@ -219,7 +220,7 @@ export default function Templates() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <div className="relative h-48 overflow-hidden">
-                    <img
+                    <Image
                       src={template.imageUrl}
                       alt={template.name}
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
@@ -279,7 +280,7 @@ export default function Templates() {
 
           <div className="mt-12 text-center">
             <Link href="/contact" className="text-purple-400 hover:text-purple-300 flex items-center justify-center">
-              Can't find what you're looking for? Contact us for a custom solution <FiArrowRight className="ml-2" />
+              Cant find what youre looking for? Contact us for a custom solution <FiArrowRight className="ml-2" />
             </Link>
           </div>
         </div>

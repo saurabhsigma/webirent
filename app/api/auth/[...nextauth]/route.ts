@@ -3,6 +3,35 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import connectDB from '@/lib/db';
 import User from '@/models/User';
+import { JWT } from 'next-auth/jwt';
+import { Session } from 'next-auth';
+
+// Extend the JWT interface provided by NextAuth to include custom fields
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id: string;
+      role: string;
+      email: string;
+    };
+    accessToken?: string;
+  }
+
+  interface JWT {
+    id: string;
+    role: string;
+    email: string;
+    accessToken?: string;
+  }
+}
+
+interface UserType {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  password: string;
+}
 
 export const authOptions = {
   providers: [
@@ -45,20 +74,26 @@ export const authOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user?: UserType }) {
       if (user) {
-        token.id = user.id;
+        token.id = user._id.toString();
         token.role = user.role;
         token.email = user.email;
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({
+      session,
+      token,
+    }: {
+      session: Session;
+      token: JWT;
+    }) {
       if (token) {
         session.user.id = token.id;
         session.user.role = token.role;
         session.user.email = token.email;
-        session.accessToken = token; // Add this line
+        session.accessToken = token.accessToken; // Add this line
       }
       return session;
     },
@@ -71,6 +106,4 @@ export const authOptions = {
   useSecureCookies: process.env.NODE_ENV === 'production',
 };
 
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
+export default NextAuth(authOptions);

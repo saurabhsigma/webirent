@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { FiArrowLeft, FiCheck, FiCreditCard } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import Script from 'next/script';
+import Image from 'next/image';
 
 type Template = {
   _id: string;
@@ -361,7 +362,7 @@ export default function OrderTemplate({ params }: { params: { id: string } }) {
                 
                 <div className="flex items-start mb-4">
                   <div className="w-20 h-20 rounded-md overflow-hidden flex-shrink-0 mr-4">
-                    <img
+                    <Image
                       src={template.imageUrl}
                       alt={template.name}
                       className="w-full h-full object-cover"

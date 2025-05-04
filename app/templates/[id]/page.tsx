@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { FiArrowLeft, FiCheck, FiExternalLink, FiShoppingCart } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 
 type Template = {
@@ -99,7 +100,7 @@ export default function TemplateDetails({ params }: { params: { id: string } }) 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             <div className="glass-card p-4 overflow-hidden">
               <div className="relative h-80 overflow-hidden rounded-md">
-                <img
+                <Image
                   src={template.imageUrl}
                   alt={template.name}
                   className="w-full h-full object-cover"
@@ -113,14 +114,14 @@ export default function TemplateDetails({ params }: { params: { id: string } }) 
 
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <div className="h-32 overflow-hidden rounded-md bg-gray-800">
-                  <img
+                  <Image
                     src={template.imageUrl}
                     alt={`${template.name} preview 1`}
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="h-32 overflow-hidden rounded-md bg-gray-800">
-                  <img
+                  <Image
                     src={template.imageUrl}
                     alt={`${template.name} preview 2`}
                     className="w-full h-full object-cover"

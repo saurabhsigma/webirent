@@ -26,7 +26,7 @@ export function CustomerConfirmation({
             <Text style={text}>Amount Paid: <strong>₹{amount.toFixed(2)}</strong></Text>
           </Section>
           
-          <Text style={text}>We'll review your requirements and contact you within 24 hours.</Text>
+          <Text style={text}>Well review your requirements and contact you within 24 hours.</Text>
           <Text style={footer}>If you have any questions, please reply to this email.</Text>
         </Container>
       </Body>
