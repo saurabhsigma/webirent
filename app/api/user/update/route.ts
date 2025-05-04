@@ -3,7 +3,6 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import connectDB from '@/lib/db';
 import UserModel from '@/models/User';
-import bcrypt from 'bcryptjs';
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
@@ -16,7 +15,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { name, email, currentPassword, newPassword } = await request.json();
+    const { name, email } = await request.json();
 
     await connectDB();
 
@@ -31,20 +30,6 @@ export async function POST(request: Request) {
     // Update name and email
     user.name = name;
     user.email = email;
-
-    // Update password if provided
-    if (currentPassword && newPassword) {
-      const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
-      if (!isPasswordValid) {
-        return NextResponse.json(
-          { message: 'Current password is incorrect' },
-          { status: 400 }
-        );
-      }
-
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
-      user.password = hashedPassword;
-    }
 
     await user.save();
 
