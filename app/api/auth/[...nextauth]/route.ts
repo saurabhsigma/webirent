@@ -42,23 +42,6 @@ interface UserDocument {
   password: string;
 }
 
-// Type guard to check if token has required properties
-function isCustomJWT(token: JWT): token is JWT & {
-  id: string;
-  role: string;
-  email: string;
-  name?: string;
-  accessToken?: string;
-} {
-  return (
-    typeof token === 'object' &&
-    token !== null &&
-    'id' in token &&
-    'role' in token &&
-    'email' in token
-  );
-}
-
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -113,22 +96,28 @@ export const authOptions = {
     }) {
       if (user) {
         const customUser = user as CustomUser;
-        token.id = customUser.id;
-        token.role = customUser.role;
-        token.email = customUser.email;
-        token.name = customUser.name;
+        return {
+          ...token,
+          id: customUser.id,
+          role: customUser.role,
+          email: customUser.email,
+          name: customUser.name,
+        };
       }
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
-      if (isCustomJWT(token)) {
-        session.user.id = token.id;
-        session.user.role = token.role;
-        session.user.email = token.email;
-        session.user.name = token.name;
-        session.accessToken = token.accessToken;
-      }
-      return session;
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: String(token.id),
+          role: String(token.role),
+          email: String(token.email),
+          name: token.name ? String(token.name) : undefined,
+        },
+        accessToken: token.accessToken ? String(token.accessToken) : undefined,
+      };
     },
   },
   pages: {
