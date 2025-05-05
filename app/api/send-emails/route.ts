@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
     // Send to admin
     const adminResult = await resend.emails.send({
-      from: 'Webirent <onboarding@resend.dev>',
+      from: 'Croo <onboarding@resend.dev>',
       to: [process.env.ADMIN_EMAIL || 'aryan16062004@gmail.com'],
       subject: `New Order: ${orderNumber}`,
       react: AdminNotification({ 
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 
     // Send to customer
     const customerResult = await resend.emails.send({
-      from: 'Webirent <support@resend.dev>',
+      from: 'Croo <support@resend.dev>',
       to: [customerEmail],
       subject: `Your Order #${orderNumber}`,
       react: CustomerConfirmation({

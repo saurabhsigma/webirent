@@ -12,7 +12,7 @@ export default function About() {
       name: 'Alex Johnson',
       role: 'Founder & CEO',
       image: 'https://randomuser.me/api/portraits/men/32.jpg',
-      bio: 'Alex founded Webirent with a vision to make professional web design accessible to everyone. With over 10 years of experience in web development and design, he leads our creative direction.',
+      bio: 'Alex founded Croo with a vision to make professional web design accessible to everyone. With over 10 years of experience in web development and design, he leads our creative direction.',
     },
     {
       name: 'Sarah Chen',
@@ -70,7 +70,7 @@ export default function About() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              About <span className="gradient-text">Webirent</span>
+              About <span className="gradient-text">Croo</span>
             </motion.h1>
             
             <motion.p 
@@ -108,7 +108,7 @@ export default function About() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <p className="text-gray-300 mb-4">
-                Webirent was founded in 2023 with a simple idea: make professional web design accessible to everyone. 
+                Croo was founded in 2023 with a simple idea: make professional web design accessible to everyone. 
                 We noticed that many small businesses and entrepreneurs struggled to create websites that truly represented their brand and vision.
               </p>
               
@@ -123,7 +123,7 @@ export default function About() {
               </p>
               
               <p className="text-gray-300">
-                Today, Webirent helps businesses of all sizes establish their online presence with beautiful, functional websites that stand out from the crowd. 
+                Today, Croo helps businesses of all sizes establish their online presence with beautiful, functional websites that stand out from the crowd. 
                 Were proud to have served thousands of clients across various industries, from e-commerce stores to professional portfolios and corporate sites.
               </p>
             </motion.div>
@@ -235,7 +235,7 @@ export default function About() {
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-4">Ready to Work With Us?</h2>
               <p className="text-xl text-gray-300">
-                Start creating your perfect website today with Webirent.
+                Start creating your perfect website today with Croo.
               </p>
             </div>
             

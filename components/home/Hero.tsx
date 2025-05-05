@@ -32,7 +32,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Create Your Perfect Website with <span className="gradient-text">Webirent</span>
+            Create Your Perfect Website with <span className="gradient-text">Croo</span>
           </motion.h1>
           
           <motion.p 

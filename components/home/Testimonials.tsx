@@ -11,7 +11,7 @@ const testimonials = [
     name: 'Sarah Johnson',
     role: 'Small Business Owner',
     image: 'https://randomuser.me/api/portraits/women/1.jpg',
-    content: 'Webirent made it so easy to get my business online. I described what I needed, and they suggested the perfect template. The whole process was smooth and the result looks professional!',
+    content: 'Croo made it so easy to get my business online. I described what I needed, and they suggested the perfect template. The whole process was smooth and the result looks professional!',
     rating: 5
   },
   {
@@ -19,7 +19,7 @@ const testimonials = [
     name: 'Michael Chen',
     role: 'Freelance Photographer',
     image: 'https://randomuser.me/api/portraits/men/2.jpg',
-    content: 'As a photographer, I needed a portfolio that would showcase my work beautifully. Webirent delivered exactly what I needed. The templates are modern and the customization options are great.',
+    content: 'As a photographer, I needed a portfolio that would showcase my work beautifully. Croo delivered exactly what I needed. The templates are modern and the customization options are great.',
     rating: 5
   },
   {
@@ -27,7 +27,7 @@ const testimonials = [
     name: 'Emily Rodriguez',
     role: 'Restaurant Owner',
     image: 'https://randomuser.me/api/portraits/women/3.jpg',
-    content: 'Our restaurant needed a website that would allow customers to view our menu and make reservations. Webirents template was perfect and we were up and running in no time!',
+    content: 'Our restaurant needed a website that would allow customers to view our menu and make reservations. Croos template was perfect and we were up and running in no time!',
     rating: 4
   },
   {
@@ -35,7 +35,7 @@ const testimonials = [
     name: 'David Wilson',
     role: 'Fitness Trainer',
     image: 'https://randomuser.me/api/portraits/men/4.jpg',
-    content: 'I was able to describe exactly what I wanted for my fitness coaching business, and Webirent suggested templates that matched my vision perfectly. The ordering process was simple and fast.',
+    content: 'I was able to describe exactly what I wanted for my fitness coaching business, and Croo suggested templates that matched my vision perfectly. The ordering process was simple and fast.',
     rating: 5
   },
   {
@@ -43,7 +43,7 @@ const testimonials = [
     name: 'Lisa Thompson',
     role: 'E-commerce Store Owner',
     image: 'https://randomuser.me/api/portraits/women/5.jpg',
-    content: 'Setting up an online store seemed daunting, but Webirent made it easy. Their e-commerce templates are feature-rich and the customer support has been excellent throughout the process.',
+    content: 'Setting up an online store seemed daunting, but Croo made it easy. Their e-commerce templates are feature-rich and the customer support has been excellent throughout the process.',
     rating: 5
   }
 ];
@@ -69,7 +69,7 @@ const Testimonials = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our <span className="gradient-text">Clients Say</span></h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Dont just take our word for it. Heres what our customers have to say about their experience with Webirent.
+            Dont just take our word for it. Heres what our customers have to say about their experience with Croo.
           </p>
         </div>
 
@@ -81,6 +81,8 @@ const Testimonials = () => {
                   <Image
                     src={testimonials[currentIndex].image} 
                     alt={testimonials[currentIndex].name} 
+                    width={96}
+                    height={96}
                     className="w-full h-full object-cover"
                   />
                 </div>

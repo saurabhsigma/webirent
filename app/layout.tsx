@@ -9,7 +9,7 @@ import AuthProvider from '@/components/auth/AuthProvider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Webirent - Custom Website Templates',
+  title: 'Croo - Custom Website Templates',
   description: 'Get custom website templates based on your requirements',
 };
 

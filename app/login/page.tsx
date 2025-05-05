@@ -69,7 +69,7 @@ export default function Login() {
       <div className="max-w-md w-full space-y-8 glass-card p-8">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-bold">
-            Welcome back to <span className="gradient-text">Webirent</span>
+            Welcome back to <span className="gradient-text">Croo</span>
           </h2>
           <p className="mt-2 text-gray-300">
             Sign in to your account

@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center mb-4">
-              <span className="text-2xl font-bold gradient-text">Webirent</span>
+              <span className="text-2xl font-bold gradient-text">Croo</span>
             </Link>
             <p className="text-gray-400 mb-4">
               Custom website templates tailored to your needs. Get started with a prompt and bring your vision to life.
@@ -107,7 +107,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            &copy; {new Date().getFullYear()} Webirent. All rights reserved.
+            &copy; {new Date().getFullYear()} Croo. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <a href="mailto:info@webirent.com" className="text-gray-400 hover:text-white transition-colors flex items-center">

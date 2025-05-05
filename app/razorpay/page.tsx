@@ -28,7 +28,7 @@ const PaymentPage = () => {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: AMOUNT * 100,
         currency: "INR",
-        name: "Webirent",
+        name: "Croo",
         description: "Test Transaction",
         order_id: data.orderId,
         handler: function(response: any) {

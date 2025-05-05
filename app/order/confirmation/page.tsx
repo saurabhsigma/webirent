@@ -126,7 +126,7 @@ export default function OrderConfirmation() {
           `}</style>
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h2 className="text-2xl font-bold">Webirent</h2>
+              <h2 className="text-2xl font-bold">Croo</h2>
               <p className="text-gray-600">Custom Website Templates</p>
             </div>
             <div className="text-right">
@@ -209,7 +209,7 @@ export default function OrderConfirmation() {
           >
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h2 className="text-2xl font-bold gradient-text">Webirent</h2>
+                <h2 className="text-2xl font-bold gradient-text">Croo</h2>
                 <p className="text-gray-400">Custom Website Templates</p>
               </div>
               <div className="text-right">

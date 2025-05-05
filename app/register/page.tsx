@@ -72,7 +72,7 @@ export default function Register() {
       <div className="max-w-md w-full space-y-8 glass-card p-8">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-bold">
-            Join <span className="gradient-text">Webirent</span> today
+            Join <span className="gradient-text">Croo</span> today
           </h2>
           <p className="mt-2 text-gray-300">
             Create your account to get started
